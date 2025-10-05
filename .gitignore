@@ -136,6 +136,7 @@ ENV/
 env.bak/
 venv.bak/
 *.specstory
+*uv.lock
 
 # Spyder project settings
 .spyderproject
