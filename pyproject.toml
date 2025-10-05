@@ -1,3 +1,26 @@
+[project]
+name = "python-starter-template"
+version = "0.1.0"
+requires-python = ">=3.10,<3.12"
+
+dependencies = [
+    "earthengine-api",
+    "geemap",
+    "rasterio",
+    "geopandas",
+    "folium",
+    "pandas",
+    "numpy",
+    "matplotlib",
+    "jupyterlab",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "pre-commit",
+]
+
 [tool.ruff]
 exclude = [
     ".bzr", ".direnv", ".eggs", ".git", ".git-rewrite", ".hg",
