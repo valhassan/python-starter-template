@@ -1,81 +1,55 @@
-# 🧰 Python Starter Template
+# Python starter template
 
-This is a minimalist Python project template configured for automatic **PEP 8 compliance** using [Ruff](https://docs.astral.sh/ruff/) and [Pre-commit](https://pre-commit.com/), plus optional VS Code setup.
+Minimal Python project. Ruff lints and formats. Pre-commit runs both before a commit lands.
 
-## 🚀 Quickstart
+## Setup
 
-### 1. Install dependencies
 ```bash
 pip install pre-commit ruff
-```
-
-### 2. Install Git pre-commit hooks
-```bash
 pre-commit install
-```
-
-### 3. Run pre-commit manually (optional, recommended for first run)
-```bash
 pre-commit run --all-files
 ```
 
----
+The last command is optional. Run it once so files already in the tree get fixed before you rely on the hooks.
 
-## 🔧 Configuration
+The hook pins Ruff in `.pre-commit-config.yaml` (`rev`). `pip install ruff` tracks the current release, so bump `rev` when you want the hook and the local install on the same version.
 
-### Ruff
-All code style and linting rules are managed in `pyproject.toml`. Ruff is configured to:
-- Enforce PEP 8 with opinionated fixes
-- Use Black-like formatting (via `ruff format`)
-- Target Python 3.11
+## Configuration
 
-### Pre-commit Hooks
-Hooks are defined in `.pre-commit-config.yaml`. This template includes:
-- **ruff**: Lint with auto-fix
-- **ruff-format**: Format code
-- **YAML/JSON/whitespace fixers** for non-code hygiene
+Ruff is configured in `pyproject.toml`: line length 88, target Python 3.11, rule set `ALL`. Formatting is `ruff format`.
 
----
+`.pre-commit-config.yaml` runs:
 
-## 📁 Project Structure
+- `ruff` with `--fix`
+- `ruff-format`
+- trailing whitespace, end-of-file, YAML, JSON, and large-file checks
+
+Those hooks are what make a commit lint-clean. They run after `pre-commit install`.
+
+## Layout
+
 ```
-your-project/
+.
 ├── pyproject.toml
 ├── .pre-commit-config.yaml
 ├── README.md
 └── src/
-    └── main.py
+    ├── main.py
+    └── main.ipynb
 ```
 
----
+## Editor
 
-## ✅ Result
-Any committed code will be:
-- PEP 8-compliant
-- Cleanly formatted
-- Automatically linted and fixed
+Install the Ruff extension. The extension id is `charliermarsh.ruff`. It covers formatting, import sorting, and the lint fixes that used to be Black, isort, and flake8.
 
-This setup is ideal for individuals or teams aiming for consistent, clean Python code with zero manual effort.
-
----
-
-## 🧩 (Optional) VS Code / Cursor Setup
-
-To get the best development experience with automatic formatting and linting in real-time:
-
-### Required Extensions
-- **Ruff** (official extension by `Astral`) – _Replaces Black, isort, flake8_
-- **Pylance** – for type checking and rich intellisense
-- **Prettier** (optional) – for non-Python files like Markdown or JSON
-
-### Suggested `settings.json`
 ```json
 {
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-      "source.organizeImports": "explicit"
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
     }
   },
   "editor.rulers": [88],
@@ -83,4 +57,8 @@ To get the best development experience with automatic formatting and linting in 
 }
 ```
 
-Ensure your Python environment is selected correctly via the Command Palette (Cmd/Ctrl+Shift+P → "Python: Select Interpreter").
+`source.fixAll.ruff` and `source.organizeImports.ruff` limit those actions to Ruff. `"explicit"` runs them on Cmd+S (Ctrl+S). Delayed autosave only writes the file. The ruler matches `line-length` in `pyproject.toml`.
+
+Ruff does not type-check. Use Pylance, or Astral's `ty` if you want the type checker from the same place as Ruff. `ty` is still pre-1.0.
+
+Select the project interpreter from the command palette: "Python: Select Interpreter".
