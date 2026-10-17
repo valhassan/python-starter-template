@@ -11,10 +11,6 @@ dependencies = ["numpy>=2.5.0"]
 [project.optional-dependencies]
 dev = ["pytest", "ruff", "pre-commit"]
 
-
-[tool.setuptools.packages.find]
-where = ["src"]
-
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 
