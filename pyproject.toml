@@ -1,3 +1,27 @@
+[project]
+name = "python-starter-template"
+version = "0.1.0"
+description = "Python starter template"
+authors = [
+  { name = "Victor Alhassan", email = "victorlazio109@yahoo.com" },
+]
+requires-python = ">=3.12,<=3.15"
+dependencies = ["numpy>=2.5.0"]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "pre-commit"]
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
+# --------------------------
+# Ruff configuration
+# --------------------------
+
 [tool.ruff]
 exclude = [
     ".bzr", ".direnv", ".eggs", ".git", ".git-rewrite", ".hg",
